@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>회원 가입 페이지</title>
+</head>
+<body>
+	<h1>회원 가입 페이지</h1>
+	<br>
+		<form action="" method="POST">
+			{% csrf_token %}
+			<p>아이디</p>
+			<input name="username" type="text">
+			<p>비밀번호</p>
+			<input name='password' type="password">
+			<p>성</p>
+			<input name="firstname" type="text">
+			<p>이름</p>
+			<input name="lastname" type="text">
+			<p>이메일</p>
+			<input name="email" type="text">
+			<p>학번</p>
+			<input name="user_id" type="text">
+			<input type="submit" value="회원가입">
+		</form>
+</body>
+</html>
