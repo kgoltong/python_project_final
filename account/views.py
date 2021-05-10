@@ -47,19 +47,23 @@ def signup_view(request):
 
     return render(request, 'user/signup.html')
 
-# todo list
+
 def index(request):
-    _todos = Todo.objects.all()
-    return render(request, 'index.html', {'todos' : _todos})
+    todos = Todo.objects.all()  # Todo 테이블의 모든 데이터를 가져와서
+    content = {'todos': todos}  # 딕셔너리형태로 content에 넣는다
+    return render(request, 'my_to_do_app/index.html', content)
 
-def create_todo(request):
-    content = request.POST['todoContent']
-    new_todo = Todo(title=content)
-    new_todo.save()
-    return HttpResponseRedirect(reverse('index'))
 
-def delete_todo(request):
-    _id = request.GET['todoNum']
-    todo = Todo.objects.get(id=_id)
+def createTodo(request):
+    user_input_str = request.POST['todoContent']  # name값이 todoContent였지!
+    new_todo = Todo(content=user_input_str)  # DB의 Todo테이블에 쓰고,
+    new_todo.save()  # 저장!
+    return HttpResponseRedirect(reverse('index'))  # 처리 후 index.html로 돌아가기
+# return HttpResponse("create Todo를 할 거야!=>"+user_input_str)
+
+def deleteTodo(request):
+    done_todo_id = request.GET['todoNum']
+    print("완료한todo의 id", done_todo_id)
+    todo = Todo.objects.get(id=done_todo_id)
     todo.delete()
     return HttpResponseRedirect(reverse('index'))

@@ -6,6 +6,5 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     user_id = models.CharField(max_length=10)
 
-# todo list 모델
 class Todo(models.Model):
-    title = models.CharField(max_length=255)
+    content = models.CharField(max_length = 255)

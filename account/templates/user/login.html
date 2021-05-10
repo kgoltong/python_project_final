@@ -14,6 +14,30 @@
         로그인 성공!
         {{ user.username}}님 환영합니다.
         <a href="{% url 'account:logout' %}">로그아웃</a>
+                    <h1>To-do List <small>with Django</small></h1>
+
+                <form action="" method="POST">
+                    {% csrf_token %}
+                       <input id="todoContent" name="todoContent" type="text" placeholder="메모할 내용을 적어주세요">
+                        <span>
+                            <button type="submit">메모하기!</button>
+                        </span>
+                </form>
+
+                <ul>
+                    {% for todo in todos %}
+                    <form action="./deleteTodo/" method="GET">
+                        <div class="input-group" name='todo1'>
+                            <li>{{todo.content}}</li>
+                            <input type="hidden" id="todoNum" name="todoNum" value="{{todo.id}}">
+                            <span>
+                                <button type="submit">완료</button>
+                            </span>
+                        </div>
+                    </form>
+                    {% endfor %}
+                </ul>
+
     {% else %}
         <form action="" method="POST">
 <!--  {% csrf_token %} 메소드 방식이 POST 일 경우 사용한다.   -->
