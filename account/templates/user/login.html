@@ -16,7 +16,7 @@
         <a href="{% url 'account:logout' %}">로그아웃</a>
                     <h1>To-do List <small>with Django</small></h1>
 
-                <form action="" method="POST">
+                <form action="./createTodo/" method="POST">{% csrf_token %}
                     {% csrf_token %}
                        <input id="todoContent" name="todoContent" type="text" placeholder="메모할 내용을 적어주세요">
                         <span>
