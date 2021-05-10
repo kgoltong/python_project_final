@@ -2,7 +2,12 @@ from django.contrib import auth
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
-from .models import User
+from .models import User, Todo
+
+from django.shortcuts import HttpResponseRedirect
+from django.urls import reverse
+
+
 # Create your views here.
 
 def login_view(request):
@@ -41,3 +46,20 @@ def signup_view(request):
         return redirect('account:login')
 
     return render(request, 'user/signup.html')
+
+# todo list
+def index(request):
+    _todos = Todo.objects.all()
+    return render(request, 'index.html', {'todos' : _todos})
+
+def create_todo(request):
+    content = request.POST['todoContent']
+    new_todo = Todo(title=content)
+    new_todo.save()
+    return HttpResponseRedirect(reverse('index'))
+
+def delete_todo(request):
+    _id = request.GET['todoNum']
+    todo = Todo.objects.get(id=_id)
+    todo.delete()
+    return HttpResponseRedirect(reverse('index'))
