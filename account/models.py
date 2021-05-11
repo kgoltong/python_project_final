@@ -7,4 +7,4 @@ class User(AbstractUser):
     user_id = models.CharField(max_length=10)
 
 class Todo(models.Model):
-    content = models.CharField(max_length = 255)
+    content = models.CharField(max_length=255)
