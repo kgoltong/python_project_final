@@ -20,7 +20,10 @@ def login_view(request):
             login(request, user)
         else:
             print('인증 실패')
-    return render(request, 'user/login.html')
+    todos = Todo.objects.all()
+    content = {'todos': todos}
+    print(content)
+    return render(request, 'user/login.html', content)
 
 def logout_view(request):
     logout(request)
@@ -48,18 +51,16 @@ def signup_view(request):
     return render(request, 'user/signup.html')
 
 
-def index(request):
-    todos = Todo.objects.all()  # Todo 테이블의 모든 데이터를 가져와서
-    content = {'todos': todos}  # 딕셔너리형태로 content에 넣는다
-    return render(request, 'account:login', content)
+# def index(request):
+#
+#     return render(request, content, 'account/login.html')
 
 
 def createTodo(request):
-    user_input_str = request.POST['todoContent']  # name값이 todoContent였지!
-    new_todo = Todo(content=user_input_str)  # DB의 Todo테이블에 쓰고,
-    new_todo.save()  # 저장!
-    return HttpResponseRedirect(reverse('account:login'))  # 처리 후 index.html로 돌아가기
-# return HttpResponse("create Todo를 할 거야!=>"+user_input_str)
+    user_input_str = request.POST['todoContent']
+    new_todo = Todo(content=user_input_str)
+    new_todo.save()
+    return HttpResponseRedirect(reverse('account:login'), {'todos':new_todo})
 
 def deleteTodo(request):
     done_todo_id = request.GET['todoNum']
