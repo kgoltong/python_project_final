@@ -1,14 +1,31 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <script language="javascript">
+        <!-- 상단 날짜와 시간을 출력해주는 함수-->
+         function time(){
+              const date = new Date();
+              const today = new Date();
+              const year = today.getFullYear();
+              const month = today.getMonth()+1;
+              const day = today.getDate();
+              const minutes = date.getMinutes();
+              const hours = date.getHours();
+              const seconds = date.getSeconds();
+              document.getElementById("now").innerHTML=`${year}/${month}/${day}<br>${hours < 10 ? `0${hours}` : hours }:${minutes < 10 ? `0${minutes}` : minutes }:${seconds < 10 ? `0${seconds}` : seconds}`;
+              setInterval('time()',1000);
+          }
+     </script>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
-<body>
 
+<body onload="time()">
+
+<h1><span id="now"></span></h1>
     <h1>로그인 페이지</h1>
     {% if user.is_authenticated %}
         로그인 성공!
@@ -23,20 +40,23 @@
                             <button type="submit">메모하기!</button>
                         </span>
                 </form>
-
+    <h1>오늘 할일</h1>
                 <ul>
                     {% for todo in todos %}
                     <form action="./deleteTodo/" method="GET">
                         <div name='todo1'>
-                            <li>{{todo.content}}</li>
-                            <input id="todoNum" name="todoNum" value="{{todo.id}}">
+                            <label><input type="checkbox">{{todo.content}}</label>
+
+                            <input type="hidden" id="todoNum" name="todoNum" value="{{todo.id}}">
                             <span>
-                                <button type="submit">완료</button>
+                                <button type="submit">삭제</button>
+                                <button type="submit">이동</button>
                             </span>
                         </div>
                     </form>
                     {% endfor %}
                 </ul>
+        <h1>해야 할 일</h1>
 
     {% else %}
         <form action="" method="POST">
