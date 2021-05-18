@@ -20,4 +20,5 @@ import account.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('account.urls')),
+    path('cal/', include('cal.urls')),
 ]

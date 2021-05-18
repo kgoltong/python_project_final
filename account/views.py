@@ -50,12 +50,6 @@ def signup_view(request):
 
     return render(request, 'user/signup.html')
 
-
-# def index(request):
-#
-#     return render(request, content, 'account/login.html')
-
-
 def createTodo(request):
     user_input_str = request.POST['todoContent']
     new_todo = Todo(content=user_input_str)
