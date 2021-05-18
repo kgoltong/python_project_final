@@ -63,8 +63,11 @@ def createTodo(request):
     return HttpResponseRedirect(reverse('account:login'), {'todos':new_todo})
 
 def deleteTodo(request):
-    done_todo_id = request.GET['todoNum']
-    print("완료한todo의 id", done_todo_id)
-    todo = Todo.objects.get(id=done_todo_id)
+    dele_todo_id = request.GET['todoNum']
+    print("삭제한 todo의 id", dele_todo_id)
+    todo = Todo.objects.get(id=dele_todo_id)
     todo.delete()
     return HttpResponseRedirect(reverse('account:login'))
+
+
+
