@@ -1,6 +1,9 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
     <script language="javascript">
         <!-- 상단 날짜와 시간을 출력해주는 함수-->
          function time(){
@@ -22,16 +25,25 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
-
+<style>
+ 	li{font-size:15px;}
+	a{text-decoration:none;}
+</style>
+<!-- onload: 페이지가 로드될 때 특정 함수를 호출시 사용-->
 <body onload="time()">
-
-<h1><span id="now"></span></h1>
-    <h1>로그인 페이지</h1>
+<!--    <h1>로그인 페이지</h1>-->
     {% if user.is_authenticated %}
+<br>
+        <ul class="nav nav-tabs justify-content-end ">
+          <li role="presentation" class="active"><a href="#">Home</a></li>
+          <li role="presentation"><a href="#">Calendar</a></li>
+          <li role="presentation"><a href="#">Notice board</a></li>
+        </ul>
         로그인 성공!
-        {{ user.username}}님 환영합니다.
+        {{ user.last_name}}님 환영합니다.
         <a href="{% url 'account:logout' %}">로그아웃</a>
-                    <h1>To-do List <small>with Django</small></h1>
+<h1><span id="now"></span></h1>
+                    <h1>To-do List</h1>
 
                 <form action="./createTodo/" method="POST">
                     {% csrf_token %}
@@ -40,23 +52,28 @@
                             <button type="submit">메모하기!</button>
                         </span>
                 </form>
-    <h1>진행 중</h1>
                 <ul>
+                  <h1>진행 중</h1>
                     {% for todo in todos %}
-                    <form action="./deleteTodo/" method="GET">
-                        <div name='todo1'>
-                            <label><input type="checkbox">{{todo.content}}</label>
-                            <label><{{todo.DateTime|time:"H:i"}}></label>
-                            <input type="hidden" id="todoNum" name="todoNum" value="{{todo.id}}">
-                            <span>
-                                <button type="submit" >삭제</button>
-                            </span>
-                        </div>
+                    <div class="item__list">
+                        <form action="./deleteTodo/" method="GET">
+                            <div name='todo1'>
+                                    <label><input id = 'night_day' type="checkbox">{{todo.content}}</label>
+                                    <label><{{todo.DateTime|time:"H:i"}}></label>
+                                    <input type="hidden" id="todoNum" name="todoNum" value="{{todo.id}}">
+                                    <span>
+                                        <button type="submit">삭제</button>
+                                    </span>
+
+                            </div>
                     </form>
+                    </div>
                     {% endfor %}
                 </ul>
-        <h1>완 료</h1>
 
+                <ul>
+                        <h1>완료 함</h1>
+                </ul>
     {% else %}
         <form action="" method="POST">
 <!--  {% csrf_token %} 메소드 방식이 POST 일 경우 사용한다.   -->
