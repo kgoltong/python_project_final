@@ -7,7 +7,6 @@ from .models import User, Todo
 from django.shortcuts import HttpResponseRedirect
 from django.urls import reverse
 
-
 # Create your views here.
 
 def login_view(request):
@@ -57,15 +56,20 @@ def createTodo(request):
     return HttpResponseRedirect(reverse('account:login'), {'todos': new_todo})
 
 def deleteTodo(request):
-    dele_todo_id = request.GET.get('todoNum')
+    some_var = request.POST.getlist('checks[]')
+    print(some_var)
+    dele_todo_id = request.POST.get('todoNum')
     print("삭제한 todo의 id", dele_todo_id)
     todo = Todo.objects.get(id=dele_todo_id)
     todo.delete()
     return HttpResponseRedirect(reverse('account:login'))
 
 def completeTodo(request):
-    com_id = request.GET.get('todoNum')
-    print('완료한 todo의 id', com_id)
+    com_id = request.POST.get('todoNum')
+    todo = Todo.objects.filter(id=com_id)
+    print('완료한 todo의 id', com_id, todo)
+    if com_id == com_id:
+        print('맞아')
     return HttpResponseRedirect(reverse('account:login'))
 
 

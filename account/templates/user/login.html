@@ -6,7 +6,9 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-    <script language="javascript">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script language="javascript">
         <!-- 상단 날짜와 시간을 출력해주는 함수-->
          function time(){
               const date = new Date();
@@ -20,7 +22,19 @@
               document.getElementById("now").innerHTML=`${year}/${month}/${day}<br>${hours < 10 ? `0${hours}` : hours }:${minutes < 10 ? `0${minutes}` : minutes }:${seconds < 10 ? `0${seconds}` : seconds}`;
               setInterval('time()',1000);
           }
+
+          function ckCheck(num) {
+            if ($("input:checkbox[name=item_name"+ num +"]").is(":checked")) {
+                alert("완료했습니다. 화이팅!");
+
+            } else {
+                alert("완료하지 못했습니다.");
+            }
+        }
      </script>
+    <style>
+
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -54,9 +68,10 @@
                   <h1>진행 중</h1>
                     {% for todo in todos %}
                     <div class="item__list">
-                        <form action="./deleteTodo/" method="GET">
+                        <form action="./deleteTodo/" method="POST">
+                            {% csrf_token %}
                             <div name='todo1'>
-                                    <label><input type="checkbox">{{todo.content}}</label>
+                                    <label><input id="selected" type="checkbox" name="item_name1" value="y" onclick="ckCheck('1')">{{todo.content}}</label>
                                     <label><{{todo.DateTime|time:"H:i"}}></label>
                                     <input type="hidden" id="todoNum" name="todoNum" value="{{todo.id}}">
                                     <span>
@@ -65,25 +80,10 @@
                                     </span>
                             </div>
                     </form>
-
-<!--완료 todo 해결-->
-<!--                  <form action="./completeTodo/" method="GET">-->
-<!--                            <div name='todo1'>-->
-<!--                                    <input type="hidden">{{todo.content}}-->
-<!--                                    <label><{{todo.DateTime|time:"H:i"}}></label>-->
-<!--                                    <input type="hidden" id="todoNum1" name="todoNum1" value="{{todo.id}}">-->
-<!--                                    <span>-->
-<!--                                        <button type="submit">완료</a></button>-->
-<!--                                    </span>-->
-<!--                            </div>-->
-<!--                    </form>-->
                     </div>
                     {% endfor %}
                 </ul>
 
-                <ul>
-                        <h1>완료 함</h1>
-                </ul>
     {% else %}
         <form action="" method="POST">
 <!--  {% csrf_token %} 메소드 방식이 POST 일 경우 사용한다.   -->
