@@ -43,12 +43,6 @@ def next_month(d):
     month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
     return month
 
-# def get_date(req_day):
-#     if req_day:
-#         year, month = (int(x) for x in req_day.split('-'))
-#         return date(year, month, day=1)
-#     return datetime.today()
-
 def get_date(req_month):
     if req_month:
         year, month = (int(x) for x in req_month.split('-'))
