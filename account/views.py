@@ -54,14 +54,21 @@ def createTodo(request):
     user_input_str = request.POST['todoContent']
     new_todo = Todo(content=user_input_str)
     new_todo.save()
-    return HttpResponseRedirect(reverse('account:login'), {'todos':new_todo})
+    return HttpResponseRedirect(reverse('account:login'), {'todos': new_todo})
 
 def deleteTodo(request):
-    dele_todo_id = request.GET['todoNum']
+    dele_todo_id = request.GET.get('todoNum')
     print("삭제한 todo의 id", dele_todo_id)
     todo = Todo.objects.get(id=dele_todo_id)
     todo.delete()
     return HttpResponseRedirect(reverse('account:login'))
+
+def completeTodo(request):
+    com_id = request.GET.get('todoNum')
+    print('완료한 todo의 id', com_id)
+    return HttpResponseRedirect(reverse('account:login'))
+
+
 
 
 

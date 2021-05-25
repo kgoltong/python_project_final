@@ -56,15 +56,27 @@
                     <div class="item__list">
                         <form action="./deleteTodo/" method="GET">
                             <div name='todo1'>
-                                    <label><input id = 'night_day' type="checkbox">{{todo.content}}</label>
+                                    <label><input type="checkbox">{{todo.content}}</label>
                                     <label><{{todo.DateTime|time:"H:i"}}></label>
                                     <input type="hidden" id="todoNum" name="todoNum" value="{{todo.id}}">
                                     <span>
-                                        <button type="submit">삭제</button>
+                                        <input type="submit" value = '삭제'/>
+                                        <input type="submit" value="완료" formaction="./completeTodo/"/>
                                     </span>
-
                             </div>
                     </form>
+
+<!--완료 todo 해결-->
+<!--                  <form action="./completeTodo/" method="GET">-->
+<!--                            <div name='todo1'>-->
+<!--                                    <input type="hidden">{{todo.content}}-->
+<!--                                    <label><{{todo.DateTime|time:"H:i"}}></label>-->
+<!--                                    <input type="hidden" id="todoNum1" name="todoNum1" value="{{todo.id}}">-->
+<!--                                    <span>-->
+<!--                                        <button type="submit">완료</a></button>-->
+<!--                                    </span>-->
+<!--                            </div>-->
+<!--                    </form>-->
                     </div>
                     {% endfor %}
                 </ul>
