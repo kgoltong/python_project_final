@@ -22,18 +22,20 @@
               document.getElementById("now").innerHTML=`${year}/${month}/${day}<br>${hours < 10 ? `0${hours}` : hours }:${minutes < 10 ? `0${minutes}` : minutes }:${seconds < 10 ? `0${seconds}` : seconds}`;
               setInterval('time()',1000);
           }
-
-          function ckCheck(num) {
-            if ($("input:checkbox[name=item_name"+ num +"]").is(":checked")) {
-                alert("완료했습니다. 고생했어요!");
-
-            } else {
-                alert("덜 마무리했군요! 화이팅!");
-            }
-        }
      </script>
     <style>
+        li{font-size:15px;}
+        a{text-decoration:none;}
+        /* Labels for checked inputs */
+        input:checked + label {
+          color: black;
+          text-decoration: line-through;
+        }
 
+        /* Checkbox element, when checked */
+        input[type="checkbox"]:checked {
+          box-shadow: 0 0 0 3px white;
+        }
     </style>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -46,13 +48,13 @@
 <!--    <h1>로그인 페이지</h1>-->
     {% if user.is_authenticated %}
 <br>
-        <ul class="nav nav-tabs justify-content-end ">
+        <ul class="nav nav-tabs justify-content-end">
           <li role="presentation" class="active"><a href="#">Home</a></li>
           <li role="presentation"><a href="#">Calendar</a></li>
           <li role="presentation"><a href="#">Notice board</a></li>
         </ul>
         로그인 성공!
-        {{ user.last_name}}님 환영합니다.
+        <b>{{ user.last_name}}</b>님 환영합니다.
         <a href="{% url 'account:logout' %}">로그아웃</a>
 <h1><span id="now"></span></h1>
                     <h1>To-do List</h1>
@@ -65,19 +67,23 @@
                         </span>
                 </form>
                 <ul>
-                  <h1> 할일 목록 </h1>
+                  <h1> 할 일 목록 </h1>
                     {% for todo in todos %}
                     <div class="item__list">
                         <form action="./deleteTodo/" method="POST">
                             {% csrf_token %}
                             <div name='todo1'>
-                                    <label><input id="selected" type="checkbox" name="item_name1" value="y" onclick="ckCheck('1')">{{todo.content}}</label>
+                                    <input type="checkbox" name="my-checkbox" id="opt-in">
+                                    <label for="opt-in">{{todo.content}}</label>
                                     <label><{{todo.DateTime|time:"H:i"}}></label>
                                     <input type="hidden" id="todoNum" name="todoNum" value="{{todo.id}}">
                                     <span>
                                         <input type="submit" value = '삭제'/>
-                                        <input type="submit" value="완료" formaction="./completeTodo/"/>
                                     </span>
+                                <div>
+<!--                                  <input type="checkbox" name="my-checkbox" id="opt-in">-->
+<!--                                  <label for="opt-in">Check me!</label>-->
+                                </div>
                             </div>
                     </form>
                     </div>
