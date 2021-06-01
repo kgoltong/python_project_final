@@ -5,7 +5,6 @@ from django.views import generic
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 import calendar
-
 from .forms import EventForm
 from .models import *
 from .utils import Calendar
