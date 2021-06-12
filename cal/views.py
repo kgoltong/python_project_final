@@ -5,9 +5,11 @@ from django.views import generic
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 import calendar
-from .forms import EventForm
+
 from .models import *
 from .utils import Calendar
+from .forms import EventForm
+
 
 class CalendarView(generic.ListView):
     model = Event
@@ -15,20 +17,19 @@ class CalendarView(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        # 달력에 오늘 날짜 사용
-        # d = get_date(self.request.GET.get('day', None))
         d = get_date(self.request.GET.get('month', None))
-
-        # 오늘의 연도, 날짜
         cal = Calendar(d.year, d.month)
-
-        # 달력을 테이블로 반환하는 월 형식 지정 방법을 호출
         html_cal = cal.formatmonth(withyear=True)
         context['calendar'] = mark_safe(html_cal)
         context['prev_month'] = prev_month(d)
         context['next_month'] = next_month(d)
         return context
+
+def get_date(req_month):
+    if req_month:
+        year, month = (int(x) for x in req_month.split('-'))
+        return date(year, month, day=1)
+    return datetime.today()
 
 def prev_month(d):
     first = d.replace(day=1)
@@ -42,13 +43,6 @@ def next_month(d):
     next_month = last + timedelta(days=1)
     month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
     return month
-
-def get_date(req_month):
-    if req_month:
-        year, month = (int(x) for x in req_month.split('-'))
-        return date(year, month, day=1)
-    return datetime.today()
-
 
 def event(request, event_id=None):
     instance = Event()

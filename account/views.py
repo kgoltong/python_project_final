@@ -71,8 +71,3 @@ def completeTodo(request):
     if com_id == com_id:
         print('맞아')
     return HttpResponseRedirect(reverse('account:login'))
-
-
-
-
-
