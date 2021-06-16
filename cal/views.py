@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta, date
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import generic
 from django.urls import reverse
@@ -56,3 +56,10 @@ def event(request, event_id=None):
         form.save()
         return HttpResponseRedirect(reverse('cal:calendar'))
     return render(request, 'cal/event.html', {'form': form})
+
+def delete(request):
+    dele_event_id = request.POST.get('Event.id')
+    print("삭제한 event", dele_event_id)
+    post = Event.objects.get(id=dele_event_id)
+    post.delete()
+    return redirect('cal/calendar.html')
