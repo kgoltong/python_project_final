@@ -63,11 +63,3 @@ def deleteTodo(request):
     todo = Todo.objects.get(id=dele_todo_id)
     todo.delete()
     return HttpResponseRedirect(reverse('account:login'))
-
-def completeTodo(request):
-    com_id = request.POST.get('todoNum')
-    todo = Todo.objects.filter(id=com_id)
-    print('완료한 todo의 id', com_id, todo)
-    if com_id == com_id:
-        print('맞아')
-    return HttpResponseRedirect(reverse('account:login'))

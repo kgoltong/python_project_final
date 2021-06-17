@@ -11,6 +11,5 @@ urlpatterns = [
     path('signup/', views.signup_view, name='signup'),
     path('login/createTodo/', views.createTodo, name='createTodo'),
     path('login/deleteTodo/', views.deleteTodo, name='deleteTodo'),
-    path('login/completeTodo/', views.completeTodo, name='completeTodo'),
 ]
 

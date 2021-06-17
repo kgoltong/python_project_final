@@ -1,6 +1,10 @@
 {% extends 'cal/base.html' %}
 
 {% block content %}
+        <ul class="nav nav-tabs justify-content-end">
+          <li role="presentation"><a href="{% url 'account:login' %}">Home</a></li>
+          <li role="presentation"  class="active"><a href="{% url 'cal:calendar' %}">Calendar</a></li>
+        </ul>
 <div class="clearfix">
 	<a class="btn btn-info left" href="{% url 'cal:calendar' %}?{{ prev_month }}"> Previous Month </a>
 	<a class="btn btn-info right" href="{% url 'cal:calendar' %}?{{ next_month }}"> Next Month </a>
