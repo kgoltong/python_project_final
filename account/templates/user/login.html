@@ -48,6 +48,7 @@
 body {
   font-family: 'Lato', sans-serif;
   background-color: #f8f8f8;
+  text-align: center;
 }
 body .container {
   position: relative;
@@ -300,6 +301,18 @@ body .container .content .signup-cont {
   text-decoration: none;
 }
 
+@font-face {
+    font-family: 'BinggraeSamanco-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/BinggraeSamanco-Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.title{
+font-family: 'BinggraeSamanco-Bold';
+font-size:50px;
+}
+
     </style>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -310,27 +323,26 @@ body .container .content .signup-cont {
 <!-- onload: 페이지가 로드될 때 특정 함수를 호출시 사용-->
 <body onload="time()">
 <!--    <h1>로그인 페이지</h1>-->
-    {% if user.is_authenticated %}
-<br>
+    {% if user.is_authenticated %}<br>
+<a href="#" class = 'title'>하루 끝</a>
         <ul class="nav nav-tabs justify-content-end">
-          <li role="presentation" class="active"><a href="{% url 'account:login' %}">Home</a></li>
-          <li role="presentation"><a href="{% url 'cal:calendar' %}">Calendar</a></li>
+          <li role="presentation" class="active"><a href="{% url 'account:login' %}"><b>Home</b></a></li>
+          <li role="presentation"><a href="{% url 'cal:calendar' %}"><b>Calendar</b></a></li>
+          <li role="presentation"><a href="{% url 'account:logout' %}"><b>Logout</b></a></li>
         </ul>
-        로그인 성공!
+        <br>
         <b>{{ user.last_name}}</b>님 환영합니다.
-        <a href="{% url 'account:logout' %}">로그아웃</a>
-<h1><span id="now"></span></h1>
-                    <h1>To-do List</h1>
+<h1><span id="now"></span></h1><br>
+        <h1><b>To-Do List</b></h1><br>
 
                 <form action="./createTodo/" method="POST">
                     {% csrf_token %}
                        <input id="todoContent" name="todoContent" type="text" placeholder="메모할 내용을 적어주세요">
                         <span>
-                            <button type="submit">메모하기!</button>
+                            <button type="submit">메모!</button>
                         </span>
                 </form>
                 <ul>
-                  <h1> 할 일 목록 </h1>
                     {% for todo in todos %}
                     <div class="item__list">
                         <form action="./deleteTodo/" method="POST">
@@ -341,7 +353,7 @@ body .container .content .signup-cont {
                                     <label><{{todo.DateTime|time:"H:i"}}></label>
                                     <input type="hidden" id="todoNum" name="todoNum" value="{{todo.id}}">
                                     <span>
-                                        <input type="submit" value = '삭제'/>
+                                        <input type="submit" value = '❌'/>
                                     </span>
                                 <div>
                                 </div>

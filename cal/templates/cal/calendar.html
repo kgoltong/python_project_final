@@ -1,9 +1,24 @@
 {% extends 'cal/base.html' %}
 
 {% block content %}
+<style>
+    @font-face {
+    font-family: 'BinggraeSamanco-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/BinggraeSamanco-Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.title{
+font-family: 'BinggraeSamanco-Bold';
+font-size:50px;
+}
+</style>
+<center><a href="#" class = 'title'>하루 끝</a></center>
         <ul class="nav nav-tabs justify-content-end">
-          <li role="presentation"><a href="{% url 'account:login' %}">Home</a></li>
-          <li role="presentation"  class="active"><a href="{% url 'cal:calendar' %}">Calendar</a></li>
+          <li role="presentation"><a href="{% url 'account:login' %}"><b>Home</b></a></li>
+          <li role="presentation" class="active"><a href="{% url 'cal:calendar' %}"><b>Calendar</b></a></li>
+          <li role="presentation"><a href="{% url 'account:logout' %}"><b>Logout</b></a></li>
         </ul>
 <div class="clearfix">
 	<a class="btn btn-info left" href="{% url 'cal:calendar' %}?{{ prev_month }}"> Previous Month </a>

@@ -48,18 +48,21 @@ def event(request, event_id=None):
     instance = Event()
     if event_id:
         instance = get_object_or_404(Event, pk=event_id)
+        print(event_id)
     else:
         instance = Event()
 
     form = EventForm(request.POST or None, instance=instance)
+    print(form)
     if request.POST and form.is_valid():
         form.save()
         return HttpResponseRedirect(reverse('cal:calendar'))
     return render(request, 'cal/event.html', {'form': form})
 
+
 def delete(request):
-    dele_event_id = request.POST.get('Event.id')
-    print("삭제한 event", dele_event_id)
-    post = Event.objects.get(id=dele_event_id)
-    post.delete()
-    return redirect('cal/calendar.html')
+    dele_event_id = request.POST.get('form.id')
+    print(dele_event_id)
+#     # memo = Event.objects.get(id=dele_event_id)
+#     # memo.delete()
+    return HttpResponseRedirect(reverse('cal:calendar'))
